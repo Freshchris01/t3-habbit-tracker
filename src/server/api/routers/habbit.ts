@@ -36,5 +36,22 @@ export const habbitRouter = createTRPCRouter({
         } catch (error) {
             console.log(error);
         }
-    })
+    }),
+    delete: protectedProcedure
+        .input(
+            z.object({
+                id: z.string(),
+            })
+        )
+        .mutation(async ({ ctx, input }) => {
+            try {
+                return await ctx.prisma.habbit.delete({
+                    where: {
+                        id: input.id
+                    },
+                });
+            } catch (error) {
+                console.log("error", error);
+            }
+        }),
 });
