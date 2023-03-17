@@ -74,4 +74,14 @@ model Habbit {
     name      String
     userId    String
     user      User     @relation(fields: [userId], references: [id])
+    habbitEvents HabbitEvent[]
+}
+
+model HabbitEvent {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    habbitId  String
+    date      DateTime
+    habbit    Habbit     @relation(fields: [habbitId], references: [id])
 }

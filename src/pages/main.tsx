@@ -5,10 +5,12 @@ import Habbits from "~/components/habbits";
 import { api } from "~/utils/api";
 import { useRouter } from 'next/router'
 import { redirect } from 'next/navigation';
+import Tracker from "~/components/tracker";
 
 const Main: React.FC = () => {
 
 	const { data: session, status } = useSession()
+	const [configureHabbit, setConfigureHabbit] = useState<boolean>(false);
 
 	if (status === "unauthenticated") {
 		console.log("unauthenticated")
@@ -29,6 +31,24 @@ const Main: React.FC = () => {
 						</h2>
 					</div>
 					<div className="mt-5 flex lg:mt-0 lg:ml-4">
+						<button
+							type="button"
+							className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+							onClick={() => setConfigureHabbit(false)}
+						>
+							Track
+						</button>
+					</div>
+					<div className="mt-5 flex lg:mt-0 lg:ml-4">
+						<button
+							type="button"
+							className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+							onClick={() => setConfigureHabbit(true)}
+						>
+							Habbits
+						</button>
+					</div>
+					<div className="mt-5 flex lg:mt-0 lg:ml-4">
 						<span className="sm:ml-3">
 							<button
 								type="button"
@@ -42,7 +62,7 @@ const Main: React.FC = () => {
 				</div>
 			</header>
 			<main className="items-center justify-center px-4 flex-1 max-w-md">
-				<Habbits />
+				{configureHabbit ? <Habbits /> : <Tracker/>}
 			</main >
 			<footer className="w-full text-center p-4 sticky bottom-0 bg-slate-900 text-white">created by Christian</footer>
 		</div >
